@@ -1,1 +1,1 @@
-Document Image Enchancement and Optical Character Recognition 
+Project to learn Optical Character Recognition in Digital Image Processing

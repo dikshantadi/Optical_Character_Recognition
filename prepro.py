@@ -21,6 +21,11 @@ img_adaptive_mean = cv2.adaptiveThreshold(
 )
 img_edge = cv2.Canny(img_adaptive_mean, 100, 200)
 
-cv2.imshow("Adaptive Thresholding", img_edge)
+kernel = np.array([[ 0, -1,  0],
+                   [-1,  5, -1],
+                   [ 0, -1,  0]])
+
+img_sharp = cv2.filter2D(img_edge, -1, kernel)
+cv2.imshow("Adaptive Thresholding", img_sharp)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

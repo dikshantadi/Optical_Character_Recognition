@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 #resize
-image = cv2.imread("resources/sh.jpg")
+image = cv2.imread("resources/dsp.jpg")
 target_width = 700
 h, w = image.shape[:2]
 target_height = int((target_width / w) * h)
@@ -23,6 +23,4 @@ adaptive = cv2.adaptiveThreshold(
     sharpened, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
 )
 
-cv2.imshow("OCR Prep Image", adaptive)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+cv2.imwrite("preprocessed.jpg", adaptive)

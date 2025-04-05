@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 #resize
-image = cv2.imread("resources/sh.jpg")
+image = cv2.imread("resources/dsp.jpg")
 target_width = 1000
 h, w = image.shape[:2]
 target_height = int((target_width / w) * h)
@@ -15,7 +15,7 @@ clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
 gray = clahe.apply(gray)
 # Sharpen before thresholding (so edges are stronger in binary image)
 sharpen_kernel = np.array([[0, -1, 0],
-                           [-1, 6, -1],
+                           [-1, 5.5, -1],
                            [0, -1, 0]])
 sharpened = cv2.filter2D(gray, -1, sharpen_kernel)
 
@@ -24,9 +24,9 @@ adaptive = cv2.adaptiveThreshold(
     sharpened, 
     255, 
     cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-    cv2.THRESH_BINARY_INV,  # Often better for document processing
-    21,  # Larger block size for uneven lighting
-    10   # Higher C value
+    cv2.THRESH_BINARY_INV,  
+    21,  
+    10   
 )
 #_, adaptive = cv2.threshold(sharpened, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 

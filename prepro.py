@@ -14,6 +14,7 @@ def preprocessing(path):
     #gray = cv2.GaussianBlur(gray, (3, 3), 0)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     gray = clahe.apply(gray)
+    
     # Sharpen before thresholding (so edges are stronger in binary image)
     sharpen_kernel = np.array([[0, -1, 0],
                             [-1, 5.5, -1],

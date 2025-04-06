@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-#resize
+#resizing
 image = cv2.imread("resources/dsp.jpg")
 target_width = 1000
 h, w = image.shape[:2]

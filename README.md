@@ -1,1 +1,1 @@
-Project to learn Optical Character Recognition in Digital Image Processing
+A very simple optical character recognizer application using OpenCV and Pytessaract.

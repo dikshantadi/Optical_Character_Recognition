@@ -1,59 +1,26 @@
-Bachetor of Engineering in Electrical & Electronics Engineering - Specialization in Communication Engincering
-Course Title: Digital Signal Processing
 
-Course Code: ETEG 305
-
-Credit Hours: 3
-
-Course Description:
-
-This course intends to intreduce digital signal processing techniques and applications.
-
-Course Contents:
-
-Unit 1: Introduction of Digital Signal Processing
-
-Review of digital signals and systems, Introduction of Digital Signal Processing (DSP).
-Overview of DSP in real world application and Importance of mathematical model for DSP.
-Introduction of commonty used hardware and software for DSP
-
-Unit 2: Z-Transform
-
-Definition of the z-transform. z-transform Propertics: linearity, Shifting, convolution. Scaling.
-Multiplication by K Vector sequences: Relation between the Z-transform and the Fourjer
-transform of a sequence. Inverse z-transform: Direct division. Partial fraction expansions. the
-inverse integral; System response. Transfer function H(z), Response to sinusoidal input - pale-
-zero relationships. Stability test of the discrete lime system.
-
-Unit 3: The Discrete Fourier Transform and Signal Spectrum
-
-The Discrete Fourier Transform (DFT) derivation, Praperties of the DFT, DFT of non-periodic
-digital signals, Signal spectrum. Spectral Estimation using window functions.
-
-Unit 4: Introduction of the Fast Fourier Transform (FFT)
-
-FFT computation algorithms: Redix- 2. Redix- 4 and Split Redix. Application of FFT algorithms.
-Spectral analysis and convolution using FFT'
-
-Unit §: Digital Filters and Realization
-
-Introduction of digital filter, Basic types of filtering, Transfer function. Freguency respoase.
-Adaptive filter and application. Reatization of digital filter: Direct form - L. Direct form - I
-Cascade. Paraliel. Lattice and Ludder.
-
-Unit 6 : Finite Duration Impulse Response (FIR) Digital Filters
-
-FIR filter design by Fourier approximation, Gibbs phenomena in FIR filter Design
-approximations. Applications of window functions o frequency response smoothing: Window
-functions. Rectangular. Hanning. Hamming and Kaiser windows: FIR filter design by the
-frequency sampling method; FIR filter design wsing the Remez exchange algorithm: Linear
-phase FIR filters. Unit sample response symmetry. Group delay.
-
-Unit 7 : Infinite Impulse Response (IIR) Digital Fitters
-
-Classical filter design using polynomial approximations, Butterworth, Chebychev. Etliptic and
-Bessel forms, IR filter design by transformation-matched Z-transform, Impulse-invariant
-transform and bilirear transformation. Application of the bilinear lransformation to IIR lowpass
-discrete filter design. Speciral transformation. Highpass. Bandpass and noich filters,
-
-Departsient of Efectrical & Elecironics Engineesing. Kathmando University, 2020 Page |
+4 4 7 5 6 6 7 5 6 7 
+6 6 1 6 6 7 0 4 1 5 6 6 5 3 4 4 5 
+6 4 4 3 
+1 6 7 0 4 4 7 4 0 4 4 0 0 
+6 6 
+6 0 2 2 6 4 5 0 4 4 5 7 0 6 0 5 2 5 5 0 2 6 5 5 5 5 5 0 
+0 2 5 7 5 6 8 7 0 5 4 7 0 4 7 5 6 0 0 1 0 1 7 4 6 2 0 7 7 0 8 0 7 7 5 4 7 4 6 1 4 0 8 0 0 5 5 4 4 
+4 6 4 4 1 3 0 7 7 7 6 5 0 5 4 
+0 0 6 8 2 4 1 8 5 2 2 4 8 5 7 2 7 0 7 8 6 5 7 7 5 0 3 5 7 5 4 0 5 2 
+2 2 4 5 2 2 2 0 5 4 7 4 5 4 5 0 0 5 5 4 0 7 5 5 6 2 3 3 0 0 4 7 0 4 5 4 5 2 2 7 2 8 7 0 5 1 1 0 7 0 4 7 7 0 4 0 6 
+2 6 0 6 0 4 7 6 5 5 2 7 3 0 0 5 1 0 7 7 6 7 5 7 5 0 3 4 5 4 2 2 0 0 0 
+4 8 3 1 0 6 6 5 6 5 7 3 1 3 4 
+8 7 5 2 0 6 6 4 5 3 5 4 5 0 5 0 7 2 6 1 5 2 2 3 0 7 1 0 0 6 2 7 5 2 0 5 4 6 6 3 1 7 2 5 4 2 3 0 0 4 4 4 1 2 7 7 3 0 7 0 7 1 6 5 0 0 0 5 4 7 0 4 8 7 2 7 0 5 
+4 6 8 5 6 0 5 8 7 0 2 4 2 2 1 5 5 6 4 2 8 4 
+5 6 2 4 3 0 5 0 2 7 0 6 7 1 5 4 5 4 3 7 5 1 0 4 2 5 3 1 4 2 2 5 0 0 
+4 4 2 0 0 2 8 6 0 5 6 2 7 4 7 4 0 2 2 2 2 7 5 5 1 5 6 6 
+6 2 4 6 4 6 0 2 4 6 0 6 7 6 4 2 0 4 8 7 0 5 0 8 2 0 8 2 
+0 3 0 8 2 5 5 6 3 6 8 3 0 8 0 6 3 4 2 4 5 0 4 0 6 2 
+3 6 4 1 2 5 0 5 7 4 3 5 0 7 4 2 2 2 2 7 3 5 2 4 6 0 1 6 0 5 6 0 2 0 4 5 0 4 5 5 4 7 0 0 0 6 7 5 0 7 6 4 0 0 0 5 3 4 5 2 2 0 1 6 2 7 7 2 4 3 0 7 7 
+6 8 4 8 2 6 5 4 7 4 4 4 7 4 6 7 2 6 4 5 5 0 7 7 6 3 7 
+0 0 1 5 8 2 7 5 0 4 0 2 4 2 4 5 6 7 5 2 0 5 5 3 4 6 1 5 0 6 6 4 2 4 0 2 3 
+6 0 2 7 6 6 0 0 5 6 4 0 6 5 0 4 0 4 0 4 4 5 2 7 5 0 4 4 1 4 2 0 0 2 5 5 6 0 5 4 0 0 7 7 6 7 4 7 2 0 5 7 
+4 8 5 4 4 7 4 6 5 7 5 5 2 0 0 6 5 3 5 7 7 7 7 2 2 6 5 4 6 5 2 2 
+4 5 6 5 6 4 5 0 5 6 0 2 4 5 0 1 3 0 0 4 7 2 3 4 3 0 4 2 4 7 0 5 7 7 3 
+0 0 6 6 2 2 5 7 4 6 1 0 

@@ -76,7 +76,7 @@ def build_model():
         layers.MaxPooling2D((2,2)),
         layers.Dropout(0.25),
         
-        # ClassifierTest Accuracy: 98.51%
+        # Classifier
         layers.Flatten(),
         layers.Dense(512, activation='relu'),
         layers.BatchNormalization(),
@@ -122,7 +122,7 @@ callbacks = [
 history = model.fit(
     train_ds,
     validation_data=val_ds,
-    epochs=30,
+    epochs=50,
     callbacks=callbacks
 )
 

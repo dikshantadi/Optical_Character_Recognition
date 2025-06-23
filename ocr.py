@@ -41,7 +41,7 @@ def preprocess_digit(char_img):
     
     return char_img.reshape(1, 28, 28, 1)
 
-def perform_ocr(image_path="test_image.png"):
+def perform_ocr(image_path="resources/cap.png"):
     print("\n=== Starting OCR Processing ===")
     
     # 1. Load and verify image

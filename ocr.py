@@ -17,44 +17,96 @@ def preprocess_digit(cropped_img):
     return normalized.reshape(1, 28, 28, 1)
 
 def perform_ocr(image_path="preprocessed.jpg", output_txt="output.txt"):
-    # Read and preprocess image
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    _, img = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY_INV)
+    if img is None:
+        raise ValueError("Could not read preprocessed image")
 
-    # Find contours of characters
-    contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # Find contours with stricter parameters
+    contours, _ = cv2.findContours(
+        img,
+        cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE
+    )
     
     characters = []
+    min_height = 15  # Minimum character height to consider
+    
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
-        if w > 5 and h > 10:
+        
+        # Filter small contours and very wide contours (likely not characters)
+        if h > min_height and w/h < 3:
             char_img = img[y:y+h, x:x+w]
-            input_char = preprocess_digit(char_img)
-            prediction = model.predict(input_char, verbose=0)
-            predicted_index = np.argmax(prediction)
-            predicted_char = class_names[predicted_index]
-            characters.append((x, y, predicted_char))
-
-    # Sort detected characters row-wise, then left to right
-    characters.sort(key=lambda tup: (tup[1] // 50, tup[0]))  # group by row, then column
-
+            
+            # Add white border to maintain aspect ratio
+            border_size = 5
+            char_img = cv2.copyMakeBorder(
+                char_img,
+                border_size,
+                border_size,
+                border_size,
+                border_size,
+                cv2.BORDER_CONSTANT,
+                value=0
+            )
+            
+            # Resize to 28x28 preserving aspect ratio
+            rows, cols = char_img.shape
+            if rows > cols:
+                factor = 28.0/rows
+                cols = int(cols*factor)
+                rows = 28
+            else:
+                factor = 28.0/cols
+                rows = int(rows*factor)
+                cols = 28
+                
+            char_img = cv2.resize(char_img, (cols, rows))
+            
+            # Center in 28x28 canvas
+            delta_w = 28 - cols
+            delta_h = 28 - rows
+            top = delta_h//2
+            bottom = delta_h - top
+            left = delta_w//2
+            right = delta_w - left
+            char_img = cv2.copyMakeBorder(
+                char_img,
+                top, bottom, left, right,
+                cv2.BORDER_CONSTANT,
+                value=0
+            )
+            
+            # Normalize and predict
+            char_img = char_img.astype(np.float32)/255.0
+            char_img = np.expand_dims(char_img, axis=(0, -1))
+            
+            prediction = model.predict(char_img, verbose=0)
+            predicted_idx = np.argmax(prediction)
+            confidence = np.max(prediction)
+            
+            # Only accept predictions with sufficient confidence
+            if confidence > 0.7:  # Adjust threshold as needed
+                predicted_char = class_names[predicted_idx]
+                characters.append((x, y, w, h, predicted_char))
+    
+    # Sort characters left-to-right, top-to-bottom
+    characters.sort(key=lambda c: (c[1], c[0]))
+    
     # Reconstruct text
     text = ""
-    current_line = -1
-    for x, y, char in characters:
-        line = y // 50
-        if line != current_line:
+    prev_y = -1
+    for x, y, w, h, char in characters:
+        if prev_y != -1 and abs(y - prev_y) > h/2:
             text += "\n"
-            current_line = line
-        text += char + " "
+        text += char
+        prev_y = y
+    
+    with open(output_txt, "w") as f:
+        f.write(text)
+    
+    return text
 
-    # Write to output file
-    with open(output_txt, "w", encoding="utf-8") as f:
-        f.write(text.strip())
-
-    return text.strip()
-
-# Example usage
 if __name__ == "__main__":
     result = perform_ocr("preprocessed.jpg", "output.txt")
     print("Detected text:\n", result)

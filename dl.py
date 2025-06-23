@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-train_dir = "resources/dataset/Dataset/data/training_data"
+train_dir = "resources/dataset/Dataset/data/training_data" 
 test_dir = "resources/dataset/Dataset/data/testing_data"
 
 # Load training dataset
@@ -30,25 +30,56 @@ def normalize_img(image, label):
 train_ds = train_ds.map(normalize_img)
 test_ds = test_ds.map(normalize_img)
 
-# Then define your CNN model
-model = tf.keras.models.Sequential([
-    tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(28, 28, 1)),
-    tf.keras.layers.MaxPooling2D((2,2)),
-
-    tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-    tf.keras.layers.MaxPooling2D((2,2)),
-
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(36, activation='softmax')  # 36 classes: 0-9 + A-Z
+# Data augmentation
+data_augmentation = tf.keras.Sequential([
+    tf.keras.layers.RandomRotation(0.05),
+    tf.keras.layers.RandomZoom(0.05),
+    tf.keras.layers.RandomContrast(0.1)
 ])
 
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+# Enhanced model architecture
+model = tf.keras.Sequential([
+    data_augmentation,
+    tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1)),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPooling2D((2,2)),
+    tf.keras.layers.Dropout(0.25),
+    
+    tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPooling2D((2,2)),
+    tf.keras.layers.Dropout(0.25),
+    
+    tf.keras.layers.Conv2D(128, (3,3), activation='relu'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Dropout(0.25),
+    
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(256, activation='relu'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dense(36, activation='softmax')
+])
 
-model.fit(train_ds, epochs=20, validation_data=test_ds)
+# Improved training configuration
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
 
+# Add callbacks
+callbacks = [
+    tf.keras.callbacks.EarlyStopping(patience=5),
+    tf.keras.callbacks.ModelCheckpoint('best_model.h5', save_best_only=True)
+]
+
+# Train with more epochs
+history = model.fit(
+    train_ds,
+    validation_data=test_ds,
+    epochs=50,
+    callbacks=callbacks
+)
 model.save('cnn_ocr.h5')
 

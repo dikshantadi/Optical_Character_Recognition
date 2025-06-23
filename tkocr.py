@@ -68,7 +68,7 @@ def predict_from_image(image_path):
 class OCRApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("OCR with CNN")
+        self.root.title("OCR")
         self.root.geometry("400x600")
 
         self.label = tk.Label(root, text="Select an image with text", font=("Helvetica", 12))

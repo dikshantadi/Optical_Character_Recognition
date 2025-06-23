@@ -86,6 +86,8 @@ y_test = np.array(all_labels)
 with open("label_encoder.pkl", "rb") as f:
     label_encoder = pickle.load(f)
 
+print("Labels used in model:", list(label_encoder.classes_))
+
 # Transform test labels using same mapping
 y_encoded_test = label_encoder.transform(y_test)
 y_categorical_test = to_categorical(y_encoded_test)

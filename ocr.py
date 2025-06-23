@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 
 # Load your trained model
-model = tf.keras.models.load_model("cnn_ocr.h5")
+model = tf.keras.models.load_model("ocr_model.h5")
 
 # Define the label map: index -> character
 class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -20,10 +20,12 @@ def perform_ocr(image_path="preprocessed.jpg", output_txt="output.txt"):
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     if img is None:
         raise ValueError("Could not read preprocessed image")
+    
+    _, binary = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY_INV)
 
     # Find contours with stricter parameters
     contours, _ = cv2.findContours(
-        img,
+        binary,
         cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_SIMPLE
     )

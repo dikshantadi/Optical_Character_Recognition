@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 import cv2
 import pickle
 
-# Step 1: Load the dataset
+# loading the dataset form my computer (downloaded)
 DATASET_PATH = "resources/dataset/Dataset/data/training_data"
 all_images = []
 all_labels = []
@@ -27,7 +27,7 @@ for label in sorted(os.listdir(DATASET_PATH)):
             all_images.append(img_resized)
             all_labels.append(label)
 
-# Convert to arrays
+# Converting to an arrays
 X = np.array(all_images)
 X = X / 255.0  # Normalize
 X = X.reshape(-1, 28, 28, 1)
@@ -112,5 +112,6 @@ cm = confusion_matrix(y_true_classes, y_pred_classes)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_encoder.classes_)
 disp.plot(xticks_rotation='vertical', cmap='viridis')
 plt.title("Confusion Matrix")
+plt.savefig("confusion_matrix.png", dpi=300)
 plt.tight_layout()
 plt.show()

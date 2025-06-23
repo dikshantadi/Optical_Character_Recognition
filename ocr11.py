@@ -43,7 +43,7 @@ def select_image():
 
 # Main window
 root = tk.Tk()
-root.title("OCR Predictor lol")
+root.title("OCR Predictor")
 root.geometry("500x500")
 
 # Layout

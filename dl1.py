@@ -105,10 +105,7 @@ model.save("ocr_model.h5")
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-# Generate confusion matrix
 cm = confusion_matrix(y_true_classes, y_pred_classes)
-
-# Display with labels (A–Z, 0–9)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_encoder.classes_)
 disp.plot(xticks_rotation='vertical', cmap='viridis')
 plt.title("Confusion Matrix")

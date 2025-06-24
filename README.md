@@ -1,1 +1,3 @@
-A very simple optical character recognizer application using OpenCV and Pytessaract.
+Opitcal Character Recognition using CNN
+
+Read the PDF file for details.

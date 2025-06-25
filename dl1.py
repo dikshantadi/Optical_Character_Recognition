@@ -11,13 +11,15 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import cv2
 import pickle
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 
 # loading the dataset form my computer (downloaded)
 DATASET_PATH = "resources/dataset/Dataset/data/training_data"
 all_images = []
 all_labels = []
 
-for label in sorted(os.listdir(DATASET_PATH)):
+for label in sorted(os.listdir(DATASET_PATH)): 
     label_path = os.path.join(DATASET_PATH, label)
     if os.path.isdir(label_path):
         for img_name in os.listdir(label_path):
@@ -42,6 +44,16 @@ y_categorical = to_categorical(y_encoded)
 with open("label_encoder.pkl", "wb") as f:
     pickle.dump(label_encoder, f)
 
+datagen = ImageDataGenerator(
+    rotation_range=10,         
+    zoom_range=0.1,            
+    width_shift_range=0.1,     
+    height_shift_range=0.1,    
+    shear_range=0.1,          
+    brightness_range=[0.8, 1.2] 
+
+)
+
 model = Sequential([
     Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1)),
     MaxPooling2D(2,2),
@@ -49,19 +61,19 @@ model = Sequential([
     Conv2D(64, (3,3), activation='relu'),
     MaxPooling2D(2,2),
 
+    Conv2D(128, (3,3), activation='relu'), 
+    MaxPooling2D(2,2),
+
     Flatten(),
-    Dense(128, activation='relu'),
-    Dropout(0.3),
+    Dense(256, activation='relu'),  
+    Dropout(0.4), 
     Dense(len(np.unique(y)), activation='softmax')
 ])
-
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
 
-history = model.fit(
-    X, y_categorical,
-    epochs=30,
-)
+model.fit(X, y_categorical, epochs=50, validation_split=0.2)
+
 TEST_PATH = "resources/dataset/Dataset/data/testing_data"
 all_images = []
 all_labels = []

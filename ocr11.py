@@ -30,14 +30,12 @@ def select_image():
     if not file_path:
         return
 
-    # Show image in GUI
     img = Image.open(file_path).resize((200, 200))
 
     img_tk = ImageTk.PhotoImage(img)
     panel.config(image=img_tk)
     panel.image = img_tk
 
-    # Predict
     result = predict_character(file_path)
     result_label.config(text=f"Predicted: {result}")
 

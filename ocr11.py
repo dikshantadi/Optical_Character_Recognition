@@ -16,15 +16,14 @@ def predict_character(img_path):
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
     if img is None:
         return "Invalid image"
-    img_resized = cv2.resize(img, (28, 28))
+    img_resized = cv2.resize(img, (64, 64))
     img_normalized = img_resized / 255.0
-    img_input = img_normalized.reshape(1, 28, 28, 1)
+    img_input = img_normalized.reshape(1, 64, 64, 1)
     prediction = model.predict(img_input)
     predicted_index = np.argmax(prediction)
     predicted_label = label_encoder.inverse_transform([predicted_index])[0]
     return predicted_label
 
-# GUI setup
 def select_image():
     file_path = filedialog.askopenfilename()
     if not file_path:
@@ -39,12 +38,10 @@ def select_image():
     result = predict_character(file_path)
     result_label.config(text=f"Predicted: {result}")
 
-# Main window
 root = tk.Tk()
 root.title("OCR Predictor")
 root.geometry("500x500")
 
-# Layout
 btn = tk.Button(root, text="Select Image", command=select_image)
 btn.pack(pady=10)
 

@@ -53,6 +53,7 @@ datagen = ImageDataGenerator(
     brightness_range=[0.8, 1.2] 
 
 )
+datagen.fit(X_train)
 
 model = Sequential([
     Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1)),
@@ -72,7 +73,7 @@ model = Sequential([
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
 
-model.fit(X, y_categorical, epochs=50, validation_split=0.2)
+history = model.fit(datagen.flow(X_train, y_train, batch_size=32), validation_data=(X_val, y_val),epochs=50)
 
 TEST_PATH = "resources/dataset/Dataset/data/testing_data"
 all_images = []

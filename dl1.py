@@ -15,7 +15,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # -----------------------------
 # 1. Loading the data (its in my computer)
 # -----------------------------
-DATASET_PATH = "resources/dataset/Dataset/data/training_data"
+DATASET_PATH = "resources/dataset/Dataset/data2/training_data"
 all_images = []
 all_labels = []
 
@@ -74,9 +74,6 @@ model = Sequential([
     Conv2D(32, (3, 3), padding='same'),
     BatchNormalization(),
     LeakyReLU(),
-    Conv2D(32, (3, 3), padding='same'),
-    BatchNormalization(),
-    LeakyReLU(),
     MaxPooling2D(pool_size=(2, 2)),
     Dropout(0.25),
 
@@ -84,16 +81,10 @@ model = Sequential([
     Conv2D(64, (3, 3), padding='same'),
     BatchNormalization(),
     LeakyReLU(),
-    Conv2D(64, (3, 3), padding='same'),
-    BatchNormalization(),
-    LeakyReLU(),
     MaxPooling2D(pool_size=(2, 2)),
     Dropout(0.3),
 
     # Block 3
-    Conv2D(128, (3, 3), padding='same'),
-    BatchNormalization(),
-    LeakyReLU(),
     Conv2D(128, (3, 3), padding='same'),
     BatchNormalization(),
     LeakyReLU(),
@@ -126,13 +117,13 @@ model.summary()
 history = model.fit(
     datagen.flow(X_train, y_train, batch_size=32),
     validation_data=(X_val, y_val),
-    epochs=50
+    epochs=30
 )
 
 # -----------------------------
 # 5. Loading the test data (again in my comp)
 # -----------------------------
-TEST_PATH = "resources/dataset/Dataset/data/testing_data"
+TEST_PATH = "resources/dataset/Dataset/data2/testing_data"
 test_images = []
 test_labels = []
 

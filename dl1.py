@@ -15,7 +15,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # -----------------------------
 # 1. Loading the data (its in my computer)
 # -----------------------------
-DATASET_PATH = "resources/dataset/Dataset/data2/training_data"
+DATASET_PATH = "resources/dataset/Dataset2/data/training_data"
 all_images = []
 all_labels = []
 
@@ -69,61 +69,37 @@ datagen.fit(X_train)
 # -----------------------------
 model = Sequential([
     Input(shape=(64, 64, 1)),
+    Conv2D(32, (3,3), activation='relu'),
+    MaxPooling2D(2,2),
 
-    # Block 1
-    Conv2D(32, (3, 3), padding='same'),
-    BatchNormalization(),
-    LeakyReLU(),
-    MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.25),
+    Conv2D(64, (3,3), activation='relu'),
+    MaxPooling2D(2,2),
 
-    # Block 2
-    Conv2D(64, (3, 3), padding='same'),
-    BatchNormalization(),
-    LeakyReLU(),
-    MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.3),
+    Conv2D(128, (3,3), activation='relu'),
+    MaxPooling2D(2,2),
 
-    # Block 3
-    Conv2D(128, (3, 3), padding='same'),
-    BatchNormalization(),
-    LeakyReLU(),
-    MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.4),
-
-    # Classification head
     Flatten(),
-    Dense(512),
-    BatchNormalization(),
-    LeakyReLU(),
-    Dropout(0.5),
+    Dense(128, activation='relu'),
+    Dropout(0.3),
     Dense(len(np.unique(y)), activation='softmax')
 ])
 
-lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
-    initial_learning_rate=0.001,  
-    decay_steps=1000,             
-    decay_rate=0.96,              
-    staircase=True                #
-)
-optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-
-model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer= 'adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
 
 # -----------------------------
 # 4. Training the model
 # -----------------------------
 history = model.fit(
-    datagen.flow(X_train, y_train, batch_size=32),
-    validation_data=(X_val, y_val),
-    epochs=30
+    X, y_categorical,
+    epochs=30,
+
 )
 
 # -----------------------------
 # 5. Loading the test data (again in my comp)
 # -----------------------------
-TEST_PATH = "resources/dataset/Dataset/data2/testing_data"
+TEST_PATH = "resources/dataset/Dataset2/data/testing_data"
 test_images = []
 test_labels = []
 

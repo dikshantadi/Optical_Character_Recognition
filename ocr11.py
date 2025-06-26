@@ -6,12 +6,11 @@ import numpy as np
 import tensorflow as tf
 import pickle
 
-# Load model and label encoder
+# Loading the model and label encoder
 model = tf.keras.models.load_model("ocr_model.h5")
 with open("label_encoder.pkl", "rb") as f:
     label_encoder = pickle.load(f)
 
-# Prediction function
 def predict_character(img_path):
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
     if img is None:

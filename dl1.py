@@ -90,11 +90,7 @@ model.summary()
 # -----------------------------
 # 4. Training the model
 # -----------------------------
-history = model.fit(
-    X, y_categorical,
-    epochs=30,
-
-)
+history = model.fit(X, y_categorical, epochs=30)
 
 # -----------------------------
 # 5. Loading the test data (again in my comp)

@@ -12,9 +12,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-# -----------------------------
-# 1. Loading the data (its in my computer)
-# -----------------------------
+
+# Loading the data (its in my computer)
 DATASET_PATH = "resources/dataset/Dataset2/data/training_data"
 all_images = []
 all_labels = []
@@ -48,9 +47,8 @@ with open("label_encoder.pkl", "wb") as f:
 
 X_train, X_val, y_train, y_val = train_test_split(X, y_categorical, test_size=0.2, random_state=42)
 
-# -----------------------------
-# 2. Data augmentation
-# -----------------------------
+
+# Data augmentation
 datagen = ImageDataGenerator(
     rotation_range=15,
     zoom_range=0.15,
@@ -64,9 +62,8 @@ datagen = ImageDataGenerator(
 
 datagen.fit(X_train)
 
-# -----------------------------
+
 # 3. Building the CNN model
-# -----------------------------
 model = Sequential([
     Input(shape=(64, 64, 1)),
     Conv2D(32, (3,3), activation='relu'),
@@ -87,14 +84,13 @@ model = Sequential([
 model.compile(optimizer= 'adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
 
-# -----------------------------
-# 4. Training the model
-# -----------------------------
+
+#Training the model
+
 history = model.fit(X, y_categorical, epochs=30)
 
-# -----------------------------
-# 5. Loading the test data (again in my comp)
-# -----------------------------
+# Loading the test data (again in my comp)
+
 TEST_PATH = "resources/dataset/Dataset2/data/testing_data"
 test_images = []
 test_labels = []
@@ -118,7 +114,7 @@ X_test = X_test.reshape(-1, 64, 64, 1)
 
 y_test = np.array(test_labels)
 
-# Load label encoder
+# Loading the label encoder
 with open("label_encoder.pkl", "rb") as f:
     label_encoder = pickle.load(f)
 

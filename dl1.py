@@ -124,9 +124,8 @@ print(" Labels used:", list(label_encoder.classes_))
 y_encoded_test = label_encoder.transform(y_test)
 y_categorical_test = to_categorical(y_encoded_test)
 
-# -----------------------------
-# 6. Evaluating the model
-# -----------------------------
+
+# Evaluating the model
 y_pred_probs = model.predict(X_test)
 y_pred_classes = np.argmax(y_pred_probs, axis=1)
 y_true_classes = np.argmax(y_categorical_test, axis=1)

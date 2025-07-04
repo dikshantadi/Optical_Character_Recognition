@@ -47,9 +47,6 @@ This project is a Convolutional Neural Network (CNN)-based Optical Character Rec
 
 ## 👥 Contributors
 - Dikshyant Adhikari (04)  
-- Ajit Kumar Das (12)  
-**Supervisor**: Mr. Sanjog Sigdel  
-Kathmandu University, Department of Computer Science and Engineering
 
 ## 📚 References
 - LeNet-5 (LeCun et al.)

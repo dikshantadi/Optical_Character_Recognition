@@ -46,7 +46,7 @@ This project is a Convolutional Neural Network (CNN)-based Optical Character Rec
 - Improved handwriting recognition
 
 ##  Contributors
-- Dikshyant Adhikari (04)  
+- Dikshyant Adhikari   
 
 ##  References
 - LeNet-5 (LeCun et al.)
